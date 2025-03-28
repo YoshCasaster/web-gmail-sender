@@ -1,0 +1,23 @@
+email-sender/
+├── public/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── main.js
+│   ├── images/
+│   └── templates/
+│       ├── template1.html
+│       ├── template2.html
+│       └── template3.html
+├── views/
+│   ├── dashboard.ejs
+│   ├── landing.ejs
+│   └── partials/
+│       ├── footer.ejs
+│       └── header.ejs
+├── .env
+├── .gitignore
+├── app.js
+├── package.json
+├── vercel.json
+└── README.md

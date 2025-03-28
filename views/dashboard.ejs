@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style>
+    /* Dashboard Specific Styles */
+    .dashboard-wrapper {
+      display: flex;
+      min-height: 100vh;
+      background: #f5f7fa;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: white;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+      padding: 2rem 1rem;
+      position: fixed;
+      height: 100vh;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .sidebar-collapsed {
+      width: 80px;
+      overflow: hidden;
+    }
+
+    .sidebar-collapsed .nav-text {
+      display: none;
+    }
+
+    .sidebar-collapsed .logo-text {
+      display: none;
+    }
+
+    .sidebar-collapsed .logo-icon {
+      margin-right: 0;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-left: 1rem;
+    }
+
+    .logo-icon {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-right: 10px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .logo-text span {
+      color: var(--highlight);
+    }
+
+    .nav-menu {
+      list-style: none;
+    }
+
+    .nav-item {
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: var(--dark);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link i {
+      font-size: 1.1rem;
+      width: 24px;
+      text-align: center;
+      margin-right: 12px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+    }
+
+    .toggle-sidebar {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      transition: all 0.3s ease;
+    }
+
+    .main-content-expanded {
+      margin-left: 80px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .page-title h1 {
+      font-size: 1.8rem;
+      color: var(--dark);
+    }
+
+    .page-title p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-name {
+      font-weight: 600;
+    }
+
+    .user-email {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .content-area {
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      color: var(--dark);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-col {
+      flex: 1;
+    }
+
+    .template-options {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .template-radio {
+      display: none;
+    }
+
+    .template-label {
+      width: 150px;
+      height: 200px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .template-label img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .template-name {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 8px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .template-radio:checked + .template-label {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+    }
+
+    .status-message {
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      display: none;
+    }
+
+    .status-message.success {
+      display: block;
+      background: rgba(76, 201, 240, 0.1);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .status-message.error {
+      display: block;
+      background: rgba(247, 37, 133, 0.1);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .sidebar {
+        width: 80px;
+        overflow: hidden;
+      }
+      
+      .sidebar .nav-text {
+        display: none;
+      }
+      
+      .sidebar .logo-text {
+        display: none;
+      }
+      
+      .sidebar .logo-icon {
+        margin-right: 0;
+      }
+      
+      .main-content {
+        margin-left: 80px;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -100%;
+      }
+      
+      .sidebar.active {
+        left: 0;
+        width: 280px;
+      }
+      
+      .sidebar.active .nav-text {
+        display: inline;
+      }
+      
+      .main-content {
+        margin-left: 0;
+      }
+      
+      .mobile-menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <i class="fas fa-paper-plane"></i>
+        </div>
+        <div class="logo-text">Email<span>Pro</span></div>
+      </div>
+      
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="/dashboard" class="nav-link active">
+            <i class="fas fa-envelope"></i>
+            <span class="nav-text">Kirim Email</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-history"></i>
+            <span class="nav-text">Riwayat</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-chart-line"></i>
+            <span class="nav-text">Analitik</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-users"></i>
+            <span class="nav-text">Kontak</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-palette"></i>
+            <span class="nav-text">Template</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="fas fa-cog"></i>
+            <span class="nav-text">Pengaturan</span>
+          </a>
+        </li>
+      </ul>
+      
+      <button class="toggle-sidebar" id="toggleSidebar">
+        <i class="fas fa-chevron-left"></i>
+        <span class="nav-text">Sembunyikan</span>
+      </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" style="display: none;">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="page-title">
+          <h1 data-aos="fade-right">Kirim Email Baru</h1>
+          <p data-aos="fade-right" data-aos-delay="100">Isi form berikut untuk mengirim email ke penerima</p>
+        </div>
+        
+        <div class="user-profile">
+          <img src="/images/user-avatar.jpg" alt="User Avatar" class="user-avatar">
+          <div class="user-info">
+            <div class="user-name">Admin User</div>
+            <div class="user-email">admin@example.com</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Content Area -->
+      <div class="content-area">
+        <div class="card" data-aos="fade-up">
+          <div class="card-header">
+            <h2 class="card-title">Form Pengiriman Email</h2>
+          </div>
+          
+          <form id="emailForm">
+            <div class="form-row">
+              <div class="form-col">
+                <div class="form-group">
+                  <label for="recipients">Penerima Email</label>
+                  <input type="text" id="recipients" name="recipients" class="form-control" 
+                         placeholder="email1@contoh.com, email2@contoh.com" required>
+                </div>
+              </div>
+              
+              <div class="form-col">
+                <div class="form-group">
+                  <label for="subject">Subjek Email</label>
+                  <input type="text" id="subject" name="subject" class="form-control" 
+                         placeholder="Subjek email Anda" required>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="message">Isi Pesan</label>
+              <textarea id="message" name="message" class="form-control" 
+                        placeholder="Tulis pesan email Anda di sini..." required></textarea>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-col">
+                <div class="form-group">
+                  <label for="duration">Durasi Antar Pengiriman</label>
+                  <select id="duration" name="duration" class="form-control">
+                    <option value="0">Segera (tanpa jeda)</option>
+                    <option value="5">5 detik</option>
+                    <option value="10">10 detik</option>
+                    <option value="30">30 detik</option>
+                    <option value="60">60 detik</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-col">
+                <div class="form-group">
+                  <label>Pilih Template Email</label>
+                  <div class="template-options">
+                    <input type="radio" name="template" id="no-template" value="" 
+                           class="template-radio" checked>
+                    <label for="no-template" class="template-label">
+                      <img src="/images/no-template.jpg" alt="Tanpa Template">
+                      <span class="template-name">Tanpa Template</span>
+                    </label>
+                    
+                    <input type="radio" name="template" id="template1" value="1" 
+                           class="template-radio">
+                    <label for="template1" class="template-label">
+                      <img src="/images/template1.png" alt="Template 1">
+                      <span class="template-name">Template Modern</span>
+                    </label>
+                    
+                    <input type="radio" name="template" id="template2" value="2" 
+                           class="template-radio">
+                    <label for="template2" class="template-label">
+                      <img src="/images/template2.png" alt="Template 2">
+                      <span class="template-name">Template Profesional</span>
+                    </label>
+                    
+                    <input type="radio" name="template" id="template3" value="3" 
+                           class="template-radio">
+                    <label for="template3" class="template-label">
+                      <img src="/images/template3.png" alt="Template 3">
+                      <span class="template-name">Template Minimalis</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn-submit">
+              <i class="fas fa-paper-plane"></i> Kirim Email Sekarang
+            </button>
+          </form>
+          
+          <div id="statusMessage" class="status-message"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    // Initialize AOS animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+    
+    // Toggle sidebar
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    
+    toggleSidebar.addEventListener('click', () => {
+      sidebar.classList.toggle('sidebar-collapsed');
+      mainContent.classList.toggle('main-content-expanded');
+      
+      // Change icon and text
+      const icon = toggleSidebar.querySelector('i');
+      const text = toggleSidebar.querySelector('.nav-text');
+      
+      if (sidebar.classList.contains('sidebar-collapsed')) {
+        icon.classList.remove('fa-chevron-left');
+        icon.classList.add('fa-chevron-right');
+        text.textContent = 'Tampilkan';
+      } else {
+        icon.classList.remove('fa-chevron-right');
+        icon.classList.add('fa-chevron-left');
+        text.textContent = 'Sembunyikan';
+      }
+    });
+    
+    // Mobile menu toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+    
+    // Check screen size for mobile menu
+    function checkScreenSize() {
+      if (window.innerWidth <= 768) {
+        sidebar.classList.remove('sidebar-collapsed');
+        mainContent.classList.remove('main-content-expanded');
+        mobileMenuToggle.style.display = 'block';
+        sidebar.classList.remove('active');
+      } else {
+        mobileMenuToggle.style.display = 'none';
+        sidebar.classList.remove('active');
+      }
+    }
+    
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize();
+    
+    // Form submission handling
+    document.getElementById('emailForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
+      
+      // Show loading state
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+      submitBtn.disabled = true;
+      
+      try {
+        const response = await fetch('/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(Object.fromEntries(formData))
+        });
+        
+        const result = await response.json();
+        const statusMessage = document.getElementById('statusMessage');
+        
+        if (result.success) {
+          statusMessage.className = 'status-message success';
+          statusMessage.innerHTML = `<i class="fas fa-check-circle"></i> ${result.message}`;
+          this.reset();
+        } else {
+          statusMessage.className = 'status-message error';
+          statusMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${result.error || 'Terjadi kesalahan'}`;
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('statusMessage').className = 'status-message error';
+        document.getElementById('statusMessage').innerHTML = 
+          '<i class="fas fa-exclamation-circle"></i> Gagal mengirim email. Silakan coba lagi.';
+      } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        
+        setTimeout(() => {
+          document.getElementById('statusMessage').style.display = 'none';
+        }, 5000);
+      }
+    });
+    
+    // Add animation to template selection
+    document.querySelectorAll('.template-label').forEach(label => {
+      label.addEventListener('click', () => {
+        label.classList.add('animate__animated', 'animate__pulse');
+        setTimeout(() => {
+          label.classList.remove('animate__animated', 'animate__pulse');
+        }, 1000);
+      });
+    });
+  </script>
+</body>
+</html>

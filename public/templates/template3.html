@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: 'Helvetica Neue', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+    .email-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 0; box-shadow: none; }
+    .email-banner { height: 150px; background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); }
+    .email-content { padding: 40px; color: #333; line-height: 1.8; }
+    .signature { margin-top: 30px; font-style: italic; color: #666; }
+    .divider { height: 1px; background: #eee; margin: 30px 0; }
+    .footer { padding: 20px; text-align: center; font-size: 12px; color: #999; }
+    .cta-button { display: inline-block; padding: 12px 30px; background: #ff9a9e; color: white; text-decoration: none; border-radius: 30px; font-weight: bold; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="email-banner"></div>
+    <div class="email-content">
+      <h2 style="margin-top: 0;">Hai!</h2>
+      <p>{{message}}</p>
+      
+      <div class="divider"></div>
+      
+      <p>Kami harap Anda menikmati pengalaman dengan layanan kami.</p>
+      <center><a href="#" class="cta-button">Berikan Feedback</a></center>
+      
+      <div class="signature">
+        <p>Salam hangat,<br>Tim Email Sender</p>
+      </div>
+    </div>
+    <div class="footer">
+      <p>&copy; 2023 Email Sender. All rights reserved.</p>
+      <p><a href="#" style="color: #999; text-decoration: none;">Unsubscribe</a></p>
+    </div>
+  </div>
+</body>
+</html>

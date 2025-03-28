@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f7fa; }
+    .email-container { max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .email-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; color: white; }
+    .email-body { padding: 30px; color: #4a5568; line-height: 1.6; }
+    .email-footer { padding: 20px; text-align: center; font-size: 12px; color: #718096; background: #f7fafc; }
+    .btn { display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 4px; font-weight: bold; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <div class="email-header">
+      <h1>Pesan Penting Untuk Anda</h1>
+    </div>
+    <div class="email-body">
+      <p>{{message}}</p>
+      <p>Terima kasih telah menggunakan layanan kami.</p>
+      <center><a href="#" class="btn">Tindakan Selanjutnya</a></center>
+    </div>
+    <div class="email-footer">
+      <p>&copy; 2023 Email Sender Pro. Semua hak dilindungi.</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/header') %>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">Email<span>Pro</span></div>
+      <div class="nav-links">
+        <a href="#features">Fitur</a>
+        <a href="#how-it-works">Cara Kerja</a>
+        
+      </div>
+      <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content" data-aos="fade-up">
+        <h1>Kirim Email <span class="highlight">Profesional</span> dengan Mudah</h1>
+        <p class="subtitle">Platform pengiriman email massal dengan template modern dan jadwal otomatis</p>
+        <div class="cta-buttons">
+          <a href="/dashboard" class="btn btn-primary">
+            <i class="fas fa-rocket"></i> Mulai Sekarang
+          </a>
+          <a href="#how-it-works" class="btn btn-video">
+            <i class="fas fa-play"></i> Lihat Demo
+          </a>
+        </div>
+      </div>
+      <div class="hero-image" data-aos="fade-left">
+        <img src="/images/bg2.png" alt="Dashboard Preview">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2 data-aos="fade-up">Fitur <span class="highlight">Unggulan</span></h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Semua yang Anda butuhkan untuk kampanye email yang sukses</p>
+      
+      <div class="features-grid">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <h3>Pengiriman Cepat</h3>
+          <p>Kirim ratusan email dalam hitungan menit dengan infrastruktur kami yang handal</p>
+        </div>
+        
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon">
+            <i class="fas fa-palette"></i>
+          </div>
+          <h3>Template Modern</h3>
+          <p>Pilih dari berbagai template responsif yang dirancang untuk konversi tinggi</p>
+        </div>
+        
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Analitik Real-time</h3>
+          <p>Lacak pembukaan dan klik email dengan dashboard analitik kami</p>
+        </div>
+        
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+          <div class="feature-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Penjadwalan</h3>
+          <p>Atur waktu pengiriman yang tepat untuk audiens Anda</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <h2 data-aos="fade-up">Cara <span class="highlight">Kerja</span></h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Hanya 3 langkah sederhana untuk memulai</p>
+      
+      <div class="steps">
+        <div class="step" data-aos="fade-right">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Buat Daftar Penerima</h3>
+            <p>Upload daftar kontak atau masukkan manual dengan mudah</p>
+          </div>
+        </div>
+        
+        <div class="step" data-aos="fade-right" data-aos-delay="200">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Pilih Template</h3>
+            <p>Gunakan template profesional atau buat desain custom Anda</p>
+          </div>
+        </div>
+        
+        <div class="step" data-aos="fade-right" data-aos-delay="300">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Kirim & Lacak</h3>
+            <p>Luncurkan kampanye dan pantau hasilnya secara real-time</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 data-aos="fade-up">Apa Kata <span class="highlight">Mereka</span></h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Testimonial dari pengguna kami</p>
+      
+      <div class="testimonial-cards">
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="quote">"Platform ini mengubah cara kami berkomunikasi dengan pelanggan. Sangat mudah digunakan!"</div>
+          <div class="author">
+            <img src="/images/testimonial1.jpg" alt="Sarah Johnson">
+            <div class="author-info">
+              <h4>Sarah Johnson</h4>
+              <p>Marketing Director, TechCorp</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="quote">"Template yang disediakan sangat profesional. Response rate kami meningkat 40%!"</div>
+          <div class="author">
+            <img src="/images/testimonial2.jpg" alt="Michael Chen">
+            <div class="author-info">
+              <h4>Michael Chen</h4>
+              <p>Founder, StartupXYZ</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container" data-aos="fade-up">
+      <h2>Siap Meningkatkan <span class="highlight">Kampanye Email</span> Anda?</h2>
+      <p>Mulai gratis hari ini dan rasakan perbedaannya</p>
+      <a href="/dashboard" class="btn btn-primary btn-large">
+        <i class="fas fa-paper-plane"></i> Mulai Sekarang
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <%- include('partials/footer') %>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+    
+    // Mobile menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
