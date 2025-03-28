@@ -86,7 +86,7 @@ npm start
 ## **📌 Kontribusi**  
 
 Kalo mau nambah fitur atau benerin bug, **PR aja langsung!**  
-Dibikin sama [@lo](https://github.com/YoshCasaster) dengan ❤️  
+Dibikin sama [@YoshCasaster](https://github.com/YoshCasaster) dengan ❤️  
 
 ---
 
